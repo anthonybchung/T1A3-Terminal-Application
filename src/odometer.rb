@@ -12,6 +12,6 @@ class Odometer
     value_str = value.to_s
     raise 'Error must be an integer' if /[a-zA-Z.]/.match? value_str
 
-    @distance = value
+    @distance = value.to_i
   end
 end

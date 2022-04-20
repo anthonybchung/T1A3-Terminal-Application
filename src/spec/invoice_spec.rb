@@ -16,8 +16,6 @@ RSpec.describe 'InvoiceFile: Create new file' do
     expect(invoice_file).to be_kind_of(InvoiceFile)
   end
 
- 
-
   it 'raise error if file does not have extension JSON' do
     invoice_file = InvoiceFile.new
     file_name = '../invoice'
@@ -44,15 +42,13 @@ RSpec.describe 'Use file' do
     file_name = '../invoice'
     expect { invoice_file.use = file_name }.to raise_error(RuntimeError)
   end
-
 end
 
-RSpec.describe 'Append data' do 
+RSpec.describe 'Append data' do
   it 'append value to file' do
-  invoice_file = InvoiceFile.new
-  file_name = '../invoice.json'
-  invoice_file.use=file_name
-  invoice_file.append = {"purchase_date":"11-11-2222"}
-  
+    invoice_file = InvoiceFile.new
+    file_name = '../invoice.json'
+    invoice_file.use = file_name
+    invoice_file.append = { "purchase_date": '11-11-2222' }
   end
 end

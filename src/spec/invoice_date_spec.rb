@@ -23,4 +23,6 @@ RSpec.describe 'Invoice Date' do
     invoice_date = InvoiceDate.new
     expect { invoice_date.date = 'a1/12/2022' }.to raise_error(RuntimeError)
   end
+
+  it 'should raise an error if days are larger than 31'
 end

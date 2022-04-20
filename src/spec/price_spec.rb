@@ -16,7 +16,7 @@ RSpec.describe 'Price' do
 
   it 'raise an error if not in ddd.d format' do
     price = Price.new
-    expect { price.price = 142 }.to raise_error(RuntimeError)
+    expect { price.price = 12 }.to raise_error(RuntimeError)
   end
 
   it 'raise an error if there is a letter' do

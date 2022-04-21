@@ -9,7 +9,7 @@ class InvoiceDate
     end
     def date=(value)
         value_str = value.to_s
-        raise 'Error: Input must be in dd/mm/yyyy format' unless /\d{2}\/\d{2}\/\d{4}/.match? value_str
+        raise 'Error: Input must be in dd/mm/yyyy format' unless /\d{2}\/\d{2}\/\d{4}$/.match? value_str
         @invoice_date = value
     end
 end

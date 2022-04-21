@@ -10,7 +10,7 @@ class Paid
 
   def amount=(value)
     value_str = value.to_s
-    raise 'Input must have 2 decimal place' unless /\d+.\d\d/.match? value_str
+    raise 'Input must have 2 decimal place' unless /\d+\.\d\d$/.match?value_str
     raise 'Input must all be in digits' if /[a-zA-Z]+/.match? value_str
 
     @amount = value

@@ -30,7 +30,7 @@ class InvoiceFile
     end
     @invoice_array_struct
   end
-
+#accept array
   def store=(values)
     @invoice_array_hash = []
     values.each do |item|
@@ -38,6 +38,7 @@ class InvoiceFile
     end
     File.write(@file_name, JSON.dump(@invoice_array_hash))
   end
+
 
   def reset_invoice
     @invoice_array_hash =[]

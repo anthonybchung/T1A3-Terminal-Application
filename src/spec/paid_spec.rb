@@ -16,7 +16,7 @@ RSpec.describe 'Paid price/amount' do
 
   it 'raise an error if not in ddd.dd format' do
     paid = Paid.new
-    expect { paid.amount = 58 }.to raise_error(RuntimeError)
+    expect { paid.amount = 58.222 }.to raise_error(RuntimeError)
   end
 
   it 'raise an error if not in digits' do

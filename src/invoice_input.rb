@@ -15,8 +15,12 @@ require 'tty-prompt'
 # group functions togeter
 class InvoiceInterface
   attr_accessor :invoice_date, :invoice_odometer, :invoice_paid, :invoice_fuel_price, :invoice_fuel_qty,
-              :invoice_fuel_type, :invoice_fuel_brand, :invoice_location
+                :invoice_fuel_type, :invoice_fuel_brand, :invoice_location, :invoice_struct
 
+  # accept a struct Invoice
+  def initialize
+    @invoice_struct = Invoice.new
+  end
 
   def set_data(value)
     @invoice_date = Date.parse(value.purchase_date)
@@ -28,12 +32,13 @@ class InvoiceInterface
     @invoice_fuel_brand = value.fuel_brand
     @invoice_location = value.location
   end
+
   def invoice_date_f
     puts 'Enter invoice date (dd-mm-yyyy):'.colorize(:yellow)
     answer_date = gets.chomp
     @invoice_date = Date.parse(answer_date)
   rescue StandardError
-    puts 'make sure your date is in correct format.'.colorize(:red)
+    puts 'Make sure your date is in correct format.'.colorize(:red)
     retry
   end
 
@@ -70,7 +75,9 @@ class InvoiceInterface
   def invoice_fuel_qty_f
     puts 'Enter Fuel Quantity (xxx.xx)'.colorize(:yellow)
     answer_fuel_qty = gets.chomp
+    puts "answer_fuel_qty:#{answer_fuel_qty}"
     @invoice_fuel_qty = FuelQuantity.new
+    puts 'hello'
     @invoice_fuel_qty.qty = answer_fuel_qty
   rescue StandardError
     puts 'Data must be a number with 2 decimal (xxx.xx)'.colorize(:red)
@@ -93,5 +100,17 @@ class InvoiceInterface
     fuel_location = UserSelection.new
     fuel_location.file_name = "./data/#{FuelTrackFile::LOCATION}"
     @invoice_location = fuel_location.view(FuelTrackFile::LOCATION)
+  end
+
+  def get_struct
+    @invoice_struct.purchase_date = @invoice_date
+    @invoice_struct.odometer = @invoice_odometer.distance
+    @invoice_struct.paid = @invoice_paid.amount
+    @invoice_struct.price = @invoice_fuel_price.fuel_price
+    @invoice_struct.fuel_qty = @invoice_fuel_qty.qty
+    @invoice_struct.fuel_type = @invoice_fuel_type
+    @invoice_struct.fuel_brand = @invoice_fuel_brand
+    @invoice_struct.location = @invoice_location
+    @invoice_struct
   end
 end

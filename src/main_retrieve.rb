@@ -5,6 +5,7 @@ require 'tty-table'
 require 'tty-prompt'
 require 'date'
 require_relative './invoice_input'
+require_relative './invoice_table'
 
 module MainRetrieve
   def retrieve_invoice
@@ -13,48 +14,36 @@ module MainRetrieve
     invoice_file = InvoiceFile.new(file_name)
     invoice_struct_array = invoice_file.read_invoice
 
-    # table heading
-    table_heading = ['index'.colorize(:blue)]
-    FuelTrackFile::INVOICEATTRIBUTES.each do |item|
-      table_heading << item.colorize(:blue)
-    end
+    # create Invoice Table List
+    invoice_list_table = InvoiceListView.new
+    invoice_list_table.invoice_list = invoice_struct_array
+    invoice_list_table.viewdata
 
-    # table body
-    table_body = []
-    alternate = true
-    line_index = 1
-    invoice_struct_array.each do |item|
-      table_line = []
-      if alternate
-        table_line << line_index.to_s
-        table_line << item.purchase_date
-        table_line << item.odometer.to_s
-        table_line << item.paid.to_s
-        table_line << item.price.to_s
-        table_line << item.fuel_qty
-        table_line << item.fuel_type
-        table_line << item.fuel_brand
-        table_line << item.location
-        alternate = false
-      else
-        table_line << line_index.to_s.colorize(:blue)
-        table_line << item.purchase_date.colorize(:blue)
-        table_line << item.odometer.to_s.colorize(:blue)
-        table_line << item.paid.to_s.colorize(:blue)
-        table_line << item.price.to_s.colorize(:blue)
-        table_line << item.fuel_qty.to_s.colorize(:blue)
-        table_line << item.fuel_type.colorize(:blue)
-        table_line << item.fuel_brand.colorize(:blue)
-        table_line << item.location.colorize(:blue)
-        alternate = true
+    # Option to choose which data to be modified
+    modify_or_not_prompt = TTY::Prompt.new
+    ans_modify = modify_or_not_prompt.yes?('Do you want to modify an invoice?')
+    if ans_modify
+      begin
+        puts "Enter an index number between 1 and #{invoice_struct_array.length} or 'C' to cancel".colorize(:yellow)
+        ans_index = gets.chomp
+        if /\d+$/.match? ans_index
+          ans_int = ans_index.to_i
+          raise 'Enter valid option' unless ans_int.between?(1, invoice_struct_array.length)
+        else
+          ans_upcase = ans_index.upcase
+          raise 'Enter valid option' unless /C/.match? ans_upcase
+        end
+      rescue StandardError
+        puts 'Enter valid option'.colorize(:red)
+        retry
       end
-      table_body << table_line
-      line_index += 1
+
+      # list data that needs to be modifed
+      system('clear')
+      invoice_struct = invoice_struct_array[ans_int - 1] if ans_upcase != 'C'
+      invoice_data_view = InvoiceDataView.new
+      invoice_data_view.invoice = invoice_struct
+      invoice_data_view.viewdata
     end
-    table = TTY::Table.new(table_heading, table_body)
-    puts table.render :unicode
-    puts ''
-    puts 'History of all the invoices'.colorize(:yellow)
-    puts ''
   end
 end

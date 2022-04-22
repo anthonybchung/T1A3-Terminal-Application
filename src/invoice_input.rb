@@ -50,7 +50,7 @@ class InvoiceInterface
   end
 
   def invoice_odometer_f
-    puts 'Enter odometer distance (must be an integer):'.colorize(:yellow)
+    puts 'Enter odometer distance km(must be an integer):'.colorize(:yellow)
     answer_odometer = gets.chomp
    
     @invoice_odometer.distance = answer_odometer
@@ -60,7 +60,7 @@ class InvoiceInterface
   end
 
   def invoice_paid_f
-    puts 'Enter Paid Price (xx.xx):'.colorize(:yellow)
+    puts 'Enter Paid Price $(xx.xx):'.colorize(:yellow)
     answer_paid = gets.chomp
     # @invoice_paid = Paid.new
     @invoice_paid.amount = answer_paid
@@ -70,7 +70,7 @@ class InvoiceInterface
   end
 
   def invoice_fuel_price_f
-    puts 'Enter Fuel price per Litre (xxx.x):'.colorize(:yellow)
+    puts 'Enter Fuel price per Litre cent(xxx.x):'.colorize(:yellow)
     answer_fuel_price = gets.chomp
     # @invoice_fuel_price = Price.new
     @invoice_fuel_price.price = answer_fuel_price
@@ -80,11 +80,10 @@ class InvoiceInterface
   end
 
   def invoice_fuel_qty_f
-    puts 'Enter Fuel Quantity (xxx.xx)'.colorize(:yellow)
+    puts 'Enter Fuel Quantity Litre(xxx.xx)'.colorize(:yellow)
     answer_fuel_qty = gets.chomp
     puts "answer_fuel_qty:#{answer_fuel_qty}"
     # @invoice_fuel_qty = FuelQuantity.new
-    puts 'hello'
     @invoice_fuel_qty.qty = answer_fuel_qty
   rescue StandardError
     puts 'Data must be a number with 2 decimal (xxx.xx)'.colorize(:red)

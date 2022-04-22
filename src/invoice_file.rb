@@ -14,8 +14,10 @@ class InvoiceFile
 
   def read_invoice
     file = File.read(@file_name)
-    json_array = JSON.parse(file, symbolize_names: true)
     @invoice_array_struct = []
+    if file.size != 0 then
+    json_array = JSON.parse(file, symbolize_names: true)
+   
     json_array.each do |item|
       invoice_struct = Invoice.new
       invoice_struct.purchase_date = item[:purchase_date]
@@ -28,6 +30,7 @@ class InvoiceFile
       invoice_struct.location = item[:location]
       @invoice_array_struct << invoice_struct
     end
+  end
     @invoice_array_struct
   end
   # accept array of struct Invoice

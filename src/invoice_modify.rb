@@ -8,8 +8,6 @@ class InvoiceModify
         @invoice_struct = value
         @invoice_data_view = InvoiceDataView.new
         @invoice_interface = InvoiceInterface.new
-        puts '*********************'
-        puts 'insied InvoiceModify'
         @invoice_interface.set_data(value)
     end
     def view

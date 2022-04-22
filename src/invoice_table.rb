@@ -68,7 +68,7 @@ class InvoiceListView
   attr_accessor :invoice_list
 
   def viewdata
-    @table_header = ['Index','Date(yyyy-mm-dd)', 'Odometer', 'Paid Price($)', 'Fuel Price($/litre)', 'Fuel Qty(litre)', 'Fuel Type',
+    @table_header = ['Index','Date(yyyy-mm-dd)', 'Odometer(km)', 'Paid Price($)', 'Fuel Price(cent/litre)', 'Fuel Qty(litre)', 'Fuel Type',
                      'Fuel Brand', 'Location']
 
     @table_body = []

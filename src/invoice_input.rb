@@ -14,9 +14,20 @@ require 'tty-prompt'
 
 # group functions togeter
 class InvoiceInterface
-  attr_reader :invoice_date, :invoice_odometer, :invoice_paid, :invoice_fuel_price, :invoice_fuel_qty,
+  attr_accessor :invoice_date, :invoice_odometer, :invoice_paid, :invoice_fuel_price, :invoice_fuel_qty,
               :invoice_fuel_type, :invoice_fuel_brand, :invoice_location
 
+
+  def set_data(value)
+    @invoice_date = Date.parse(value.purchase_date)
+    @invoice_odometer = value.odometer
+    @invoice_paid = value.paid
+    @invoice_fuel_price = value.price
+    @invoice_fuel_qty = value.fuel_qty
+    @invoice_fuel_type = value.fuel_type
+    @invoice_fuel_brand = value.fuel_brand
+    @invoice_location = value.location
+  end
   def invoice_date_f
     puts 'Enter invoice date (dd-mm-yyyy):'.colorize(:yellow)
     answer_date = gets.chomp

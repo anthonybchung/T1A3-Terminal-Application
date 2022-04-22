@@ -4,13 +4,14 @@ require 'colorize'
 require 'tty-table'
 require 'tty-prompt'
 require 'date'
+require_relative './invoice_input'
 
 module MainRetrieve
   def retrieve_invoice
     file_name = "./data/#{FuelTrackFile::INVOICEDATA}"
 
-    invoicefile = InvoiceFile.new(file_name)
-    invoice_struct_array = invoicefile.read_invoice
+    invoice_file = InvoiceFile.new(file_name)
+    invoice_struct_array = invoice_file.read_invoice
 
     # table heading
     table_heading = ['index'.colorize(:blue)]
@@ -55,26 +56,5 @@ module MainRetrieve
     puts ''
     puts 'History of all the invoices'.colorize(:yellow)
     puts ''
-    modify_prompt = TTY::Prompt.new
-    ans_modify=modify_prompt.yes?("Do you what to modify an invoice?".colorize(:yellow))
-
-    if ans_modify
-        system('clear')
-        puts table.render :unicode
-        puts' '
-        begin
-        no_of_invoice = invoice_struct_array.length
-        puts "Enter index number [1-#{no_of_invoice}]"
-        ans_index_number = gets.chomp
-        raise 'Error must be integer [0-#{no_of_invoice}]' if /[a-zA-Z]/.match? ans_index_number
-        ans_int = ans_index_number.to_i
-        raise 'Must be a valid number [0-#{no_of_invoice}]' unless ans_int.between?(0,no_of_invoice)
-        rescue 
-            puts "Enter valid number"
-            retry
-        end
-    else
-
-    end
   end
 end

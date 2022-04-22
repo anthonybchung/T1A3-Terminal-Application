@@ -79,7 +79,7 @@ class InvoiceListView
       @table_line = []
       if @alternate
         @table_line << line_index.to_s
-        @table_line << item.purchase_date
+        @table_line << item.purchase_date.to_s
         @table_line << item.odometer.to_s
         @table_line << item.paid.to_s
         @table_line << item.price.to_s
@@ -90,11 +90,11 @@ class InvoiceListView
         @alternate = false
       else
         @table_line << line_index.to_s.colorize(:blue)
-        @table_line << item.purchase_date.colorize(:blue)
+        @table_line << item.purchase_date.to_s.colorize(:blue)
         @table_line << item.odometer.to_s.colorize(:blue)
         @table_line << item.paid.to_s.colorize(:blue)
         @table_line << item.price.to_s.colorize(:blue)
-        @table_line << item.fuel_qty.to_s.colorize(:blue)
+        @table_line << item.fuel_qty.colorize(:blue)
         @table_line << item.fuel_type.colorize(:blue)
         @table_line << item.fuel_brand.colorize(:blue)
         @table_line << item.location.colorize(:blue)

@@ -20,17 +20,24 @@ class InvoiceInterface
   # accept a struct Invoice
   def initialize
     @invoice_struct = Invoice.new
+    @invoice_odometer = Odometer.new
+    @invoice_paid = Paid.new
+    @invoice_fuel_price = Price.new
+    @invoice_fuel_qty = FuelQuantity.new
+    
+   
   end
 
   def set_data(value)
     @invoice_date = Date.parse(value.purchase_date)
-    @invoice_odometer = value.odometer
-    @invoice_paid = value.paid
-    @invoice_fuel_price = value.price
-    @invoice_fuel_qty = value.fuel_qty
+    @invoice_odometer.distance = value.odometer
+    @invoice_paid.amount = value.paid
+    @invoice_fuel_price.price = value.price
+    @invoice_fuel_qty.qty = value.fuel_qty
     @invoice_fuel_type = value.fuel_type
     @invoice_fuel_brand = value.fuel_brand
     @invoice_location = value.location
+
   end
 
   def invoice_date_f
@@ -45,7 +52,7 @@ class InvoiceInterface
   def invoice_odometer_f
     puts 'Enter odometer distance (must be an integer):'.colorize(:yellow)
     answer_odometer = gets.chomp
-    @invoice_odometer = Odometer.new
+   
     @invoice_odometer.distance = answer_odometer
   rescue StandardError
     puts 'make sure your value is an integer'.colorize(:red)
@@ -55,7 +62,7 @@ class InvoiceInterface
   def invoice_paid_f
     puts 'Enter Paid Price (xx.xx):'.colorize(:yellow)
     answer_paid = gets.chomp
-    @invoice_paid = Paid.new
+    # @invoice_paid = Paid.new
     @invoice_paid.amount = answer_paid
   rescue StandardError
     puts 'Data must be a number with 2 decimals'.colorize(:red)
@@ -65,7 +72,7 @@ class InvoiceInterface
   def invoice_fuel_price_f
     puts 'Enter Fuel price per Litre (xxx.x):'.colorize(:yellow)
     answer_fuel_price = gets.chomp
-    @invoice_fuel_price = Price.new
+    # @invoice_fuel_price = Price.new
     @invoice_fuel_price.price = answer_fuel_price
   rescue StandardError
     puts 'Data must be a number with 1 decimal'.colorize(:red)
@@ -76,7 +83,7 @@ class InvoiceInterface
     puts 'Enter Fuel Quantity (xxx.xx)'.colorize(:yellow)
     answer_fuel_qty = gets.chomp
     puts "answer_fuel_qty:#{answer_fuel_qty}"
-    @invoice_fuel_qty = FuelQuantity.new
+    # @invoice_fuel_qty = FuelQuantity.new
     puts 'hello'
     @invoice_fuel_qty.qty = answer_fuel_qty
   rescue StandardError

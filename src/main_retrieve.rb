@@ -6,6 +6,7 @@ require 'tty-prompt'
 require 'date'
 require_relative './invoice_input'
 require_relative './invoice_table'
+require_relative './invoice_modify'
 
 module MainRetrieve
   def retrieve_invoice
@@ -39,11 +40,15 @@ module MainRetrieve
       end
 
       # list data that needs to be modifed
-      system('clear')
-      invoice_struct = invoice_struct_array[ans_int - 1] if ans_upcase != 'C'
-      invoice_data_view = InvoiceDataView.new
-      invoice_data_view.invoice = invoice_struct
-      invoice_data_view.viewdata
+      # system('clear')
+      if ans_upcase != 'C' then
+      invoice_struct = invoice_struct_array[ans_int - 1] 
+      invoice_modify = InvoiceModify.new(invoice_struct)
+      invoice_modify.view
+      invoice_struct_array[ans_int-1] = invoice_modify.invoice_struct
+      invoice_file.store=invoice_struct_array
+
+      end
     end
   end
 end

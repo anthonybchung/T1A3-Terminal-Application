@@ -11,19 +11,23 @@ include MainInput
 include MainRetrieve
 include MainAnalyse
 
+main_loop = true
 # choose input,retrive, analyse or predict.
-choose_main_prompt = TTY::Prompt.new
-ans_main = choose_main_prompt.select('Select an option',
-                                     ['Input New Invoice', 'Retrieve List of Invoices', 'Analyse Data', 'Plan Journey'])
-case ans_main
-when 'Input New Invoice'
-
-  MainInput.invoice_inputs
-when 'Retrieve List of Invoices'
+while main_loop
   system('clear')
-  MainRetrieve.retrieve_invoice
-when 'Analyse Data'
-  MainAnalyse.analyse
-when 'Plan Journey'
-  puts 'where are you going'
+  choose_main_prompt = TTY::Prompt.new
+  ans_main = choose_main_prompt.select('Select an option',
+                                       ['Input New Invoice', 'Retrieve List of Invoices', 'Analyse Data', 'Exit'])
+  case ans_main
+  when 'Input New Invoice'
+
+    MainInput.invoice_inputs
+  when 'Retrieve List of Invoices'
+    system('clear')
+    MainRetrieve.retrieve_invoice
+  when 'Analyse Data'
+    MainAnalyse.analyse
+  when 'Exit'
+    main_loop = false
+  end
 end

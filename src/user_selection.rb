@@ -26,12 +26,11 @@ class UserSelection
     file_name_str = file_name_str_no_json.gsub('_', ' ')
     @alternative = 'Add option'
 
-    
     prompt = TTY::Prompt.new
     main_loop = true
     while main_loop == true
-        @data_array = File.read(@file_name).split
-    @display_array = @data_array.clone << @alternative
+      @data_array = File.read(@file_name).split
+      @display_array = @data_array.clone << @alternative
       @selected_option = prompt.select("Select #{file_name_str} option".colorize(:yellow), @display_array)
       question_loop = true
       while question_loop
@@ -50,4 +49,3 @@ class UserSelection
     end
   end
 end
-

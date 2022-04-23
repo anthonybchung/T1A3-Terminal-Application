@@ -24,8 +24,6 @@ class InvoiceInterface
     @invoice_paid = Paid.new
     @invoice_fuel_price = Price.new
     @invoice_fuel_qty = FuelQuantity.new
-    
-   
   end
 
   def set_data(value)
@@ -37,7 +35,6 @@ class InvoiceInterface
     @invoice_fuel_type = value.fuel_type
     @invoice_fuel_brand = value.fuel_brand
     @invoice_location = value.location
-
   end
 
   def invoice_date_f
@@ -52,7 +49,7 @@ class InvoiceInterface
   def invoice_odometer_f
     puts 'Enter odometer distance km(must be an integer):'.colorize(:yellow)
     answer_odometer = STDIN.gets.chomp
-   
+
     @invoice_odometer.distance = answer_odometer
   rescue StandardError
     puts 'make sure your value is an integer'.colorize(:red)

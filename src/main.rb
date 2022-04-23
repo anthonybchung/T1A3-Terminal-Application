@@ -16,7 +16,6 @@ include FuelTrackFile
 
 if !ARGV.empty?
   fuel_track_version = ARGV[0]
-
   case fuel_track_version
   when 'demo'
     FileUtils.cp('./data/fuel_brand_demo.json', './data/fuel_brand.json')
@@ -24,6 +23,14 @@ if !ARGV.empty?
     FileUtils.cp('./data/invoice_demo.json', './data/invoice.json')
     FileUtils.cp('./data/location_demo.json', './data/location.json')
   when 'help'
+    help_loop = true
+    while help_loop
+    puts "Press X to exit"
+    ans_exit = STDIN.gets.chomp
+    if ans_exit == 'X' || ans_exit == 'x'
+      exit
+    end
+  end
   end
 else
   FileUtils.cp('./data/fuel_brand_actual.json', './data/fuel_brand.json')
@@ -31,14 +38,23 @@ else
   FileUtils.cp('./data/invoice_actual.json', './data/invoice.json')
   FileUtils.cp('./data/location_actual.json', './data/location.json')
 end
+
+file_name = "./data/#{FuelTrackFile::INVOICEDATA}"
+file = File.read(file_name)
+
 main_loop = true
 # choose input,retrive, analyse or predict.
 while main_loop
   system('clear')
 
   choose_main_prompt = TTY::Prompt.new
+  main_option = []
+  main_option << 'Input New Invoice'
+  main_option << 'Retrieve List of Invoices' if file.size > 0
+  main_option << 'Analyse Data' if file.size > 0
+  main_option << 'Exit'
   ans_main = choose_main_prompt.select('Select an option',
-                                       ['Input New Invoice', 'Retrieve List of Invoices', 'Analyse Data', 'Exit'])
+                                       main_option)
   case ans_main
   when 'Input New Invoice'
     system('clear')

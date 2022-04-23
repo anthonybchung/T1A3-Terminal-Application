@@ -4,7 +4,7 @@ require_relative './invoice'
 class InvoiceDataView
   attr_accessor :invoice
 
-  def viewdata
+  def view_data
     @table_header = ['Attribute'.colorize(:blue), 'Data'.colorize(:blue)]
 
     @table_body = []
@@ -67,8 +67,8 @@ end
 class InvoiceListView
   attr_accessor :invoice_list
 
-  def viewdata
-    @table_header = ['Index','Date(yyyy-mm-dd)', 'Odometer(km)', 'Paid Price($)', 'Fuel Price(cent/litre)', 'Fuel Qty(litre)', 'Fuel Type',
+  def view_data
+    @table_header = ['Index', 'Date(yyyy-mm-dd)', 'Odometer(km)', 'Paid Price($)', 'Fuel Price(cent/litre)', 'Fuel Qty(litre)', 'Fuel Type',
                      'Fuel Brand', 'Location']
 
     @table_body = []
@@ -101,7 +101,7 @@ class InvoiceListView
         @alternate = true
       end
       @table_body << @table_line
-      line_index +=1
+      line_index += 1
     end
     table = TTY::Table.new(@table_header, @table_body)
     puts table.render :unicode

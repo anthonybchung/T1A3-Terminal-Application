@@ -36,7 +36,7 @@ module MainInput
       invoice_struct.location = main_invoice.invoice_location
 
       puts ''
-      #display table
+      # display table
       invoice_data_view.invoice = invoice_struct
       invoice_data_view.viewdata
 
@@ -75,13 +75,12 @@ module MainInput
         end
       end
     end
-      # # append to invoice file
-      new_invoice = main_invoice.get_struct
-      file_name = "./data/#{FuelTrackFile::INVOICEDATA}"
-      invoice_file = InvoiceFile.new(file_name)
-      invoice_file_array = invoice_file.read_invoice
-      invoice_file_array << new_invoice
-      invoice_file.store = invoice_file_array
-
+    # # append to invoice file
+    new_invoice = main_invoice.get_struct
+    file_name = "./data/#{FuelTrackFile::INVOICEDATA}"
+    invoice_file = InvoiceFile.new(file_name)
+    invoice_file_array = invoice_file.read_invoice
+    invoice_file_array << new_invoice
+    invoice_file.store = invoice_file_array
   end
 end

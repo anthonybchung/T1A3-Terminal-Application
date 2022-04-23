@@ -14,7 +14,7 @@ module MainAnalyse
     # create Invoice Table List
     invoice_list_table = InvoiceListView.new
     invoice_list_table.invoice_list = invoice_struct_array
-    invoice_list_table.viewdata
+    invoice_list_table.view_data
     analyse_or_not_prompt = TTY::Prompt.new
     ans_analyse = analyse_or_not_prompt.yes?('Do you want to analyse data?')
     if ans_analyse
@@ -128,7 +128,8 @@ module MainAnalyse
       table = TTY::Table.new(table_header, table_body)
       puts table.render :unicode
       continue_prompt = TTY::Prompt.new
-      continue_prompt.keypress("Press any key to continue, resumes automatically in 3 minutes ...".colorize(:yellow), timeout: 180)
+      continue_prompt.keypress('Press any key to continue, resumes automatically in 3 minutes ...'.colorize(:yellow),
+                               timeout: 180)
     end
   end
 end

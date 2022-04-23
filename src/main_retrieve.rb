@@ -8,10 +8,8 @@ require_relative './invoice_input'
 require_relative './invoice_table'
 require_relative './invoice_modify'
 
-
 module MainRetrieve
   def retrieve_invoice
-
     file_name = "./data/#{FuelTrackFile::INVOICEDATA}"
 
     invoice_file = InvoiceFile.new(file_name)
@@ -20,7 +18,7 @@ module MainRetrieve
     # create Invoice Table List
     invoice_list_table = InvoiceListView.new
     invoice_list_table.invoice_list = invoice_struct_array
-    invoice_list_table.viewdata
+    invoice_list_table.view_data
 
     # Option to choose which data to be modified
     modify_or_not_prompt = TTY::Prompt.new
@@ -44,12 +42,12 @@ module MainRetrieve
 
       # list data that needs to be modifed
       system('clear')
-      if ans_upcase != 'C' then
-      invoice_struct = invoice_struct_array[ans_int - 1] 
-      invoice_modify = InvoiceModify.new(invoice_struct)
-      invoice_modify.view
-      invoice_struct_array[ans_int-1] = invoice_modify.invoice_struct
-      invoice_file.store=invoice_struct_array
+      if ans_upcase != 'C'
+        invoice_struct = invoice_struct_array[ans_int - 1]
+        invoice_modify = InvoiceModify.new(invoice_struct)
+        invoice_modify.view
+        invoice_struct_array[ans_int - 1] = invoice_modify.invoice_struct
+        invoice_file.store = invoice_struct_array
 
       end
     end

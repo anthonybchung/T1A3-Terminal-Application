@@ -22,7 +22,7 @@ module MainAnalyse
       initial_end_number = invoice_struct_array.length - 1
       begin
         puts "Enter the starting index [1-#{initial_end_number}]".colorize(:yellow)
-        initial_index = gets.chomp
+        initial_index = STDIN.gets.chomp
         if /\d+$/.match? initial_index
           initial_int = initial_index.to_i
           raise 'Index must be an integer within the range given' unless initial_int.between?(1, initial_end_number)
@@ -37,7 +37,7 @@ module MainAnalyse
       # get final index
       begin
         puts "Enter the ending index [#{initial_int + 1}-#{invoice_struct_array.length}]".colorize(:yellow)
-        final_index = gets.chomp
+        final_index = STDIN.gets.chomp
         if /\d+$/.match? final_index
           final_int = final_index.to_i
           raise 'Index must be an integer within the range given' unless final_int.between?(1,

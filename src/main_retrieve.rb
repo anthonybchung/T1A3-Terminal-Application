@@ -8,8 +8,10 @@ require_relative './invoice_input'
 require_relative './invoice_table'
 require_relative './invoice_modify'
 
+
 module MainRetrieve
   def retrieve_invoice
+
     file_name = "./data/#{FuelTrackFile::INVOICEDATA}"
 
     invoice_file = InvoiceFile.new(file_name)
@@ -26,7 +28,8 @@ module MainRetrieve
     if ans_modify
       begin
         puts "Enter an index number between 1 and #{invoice_struct_array.length} or 'C' to cancel".colorize(:yellow)
-        ans_index = gets.chomp
+        ans_index = STDIN.gets.chomp
+        puts ans_index
         if /\d+$/.match? ans_index
           ans_int = ans_index.to_i
           raise 'Enter valid option' unless ans_int.between?(1, invoice_struct_array.length)
@@ -40,7 +43,7 @@ module MainRetrieve
       end
 
       # list data that needs to be modifed
-      # system('clear')
+      system('clear')
       if ans_upcase != 'C' then
       invoice_struct = invoice_struct_array[ans_int - 1] 
       invoice_modify = InvoiceModify.new(invoice_struct)

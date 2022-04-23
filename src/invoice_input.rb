@@ -42,7 +42,7 @@ class InvoiceInterface
 
   def invoice_date_f
     puts 'Enter invoice date (dd-mm-yyyy):'.colorize(:yellow)
-    answer_date = gets.chomp
+    answer_date = STDIN.gets.chomp
     @invoice_date = Date.parse(answer_date)
   rescue StandardError
     puts 'Make sure your date is in correct format.'.colorize(:red)
@@ -51,7 +51,7 @@ class InvoiceInterface
 
   def invoice_odometer_f
     puts 'Enter odometer distance km(must be an integer):'.colorize(:yellow)
-    answer_odometer = gets.chomp
+    answer_odometer = STDIN.gets.chomp
    
     @invoice_odometer.distance = answer_odometer
   rescue StandardError
@@ -61,7 +61,7 @@ class InvoiceInterface
 
   def invoice_paid_f
     puts 'Enter Paid Price $(xx.xx):'.colorize(:yellow)
-    answer_paid = gets.chomp
+    answer_paid = STDIN.gets.chomp
     # @invoice_paid = Paid.new
     @invoice_paid.amount = answer_paid
   rescue StandardError
@@ -71,7 +71,7 @@ class InvoiceInterface
 
   def invoice_fuel_price_f
     puts 'Enter Fuel price per Litre cent(xxx.x):'.colorize(:yellow)
-    answer_fuel_price = gets.chomp
+    answer_fuel_price = STDIN.gets.chomp
     # @invoice_fuel_price = Price.new
     @invoice_fuel_price.price = answer_fuel_price
   rescue StandardError
@@ -81,7 +81,7 @@ class InvoiceInterface
 
   def invoice_fuel_qty_f
     puts 'Enter Fuel Quantity Litre(xxx.xx)'.colorize(:yellow)
-    answer_fuel_qty = gets.chomp
+    answer_fuel_qty = STDIN.gets.chomp
     puts "answer_fuel_qty:#{answer_fuel_qty}"
     # @invoice_fuel_qty = FuelQuantity.new
     @invoice_fuel_qty.qty = answer_fuel_qty

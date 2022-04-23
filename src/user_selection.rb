@@ -37,7 +37,7 @@ class UserSelection
       while question_loop
         if selected_option == @alternative
           puts "Enter new #{file_name_str}".colorize(:yellow)
-          answer_new_option = gets.chomp
+          answer_new_option = STDIN.gets.chomp
           @data_array << answer_new_option
           File.open(@file_name, 'w') do |f|
             @data_array.each { |element| f.puts(element) }

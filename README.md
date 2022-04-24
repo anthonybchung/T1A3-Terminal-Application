@@ -3,6 +3,7 @@ GitHub
 https://github.com/anthonybchung/T1A3-Terminal-Application
 
 Trello:
+https://trello.com/invite/b/LlwbKTwO/4e1219ad6a3806750f587a922651478f/user-story-map
 
 ### Requirement 5 - Code Style
 

@@ -38,7 +38,7 @@ module MainInput
       puts ''
       # display table
       invoice_data_view.invoice = invoice_struct
-      invoice_data_view.viewdata
+      invoice_data_view.view_data
 
       # confirm data
       confirm_prompt = TTY::Prompt.new
@@ -51,7 +51,7 @@ module MainInput
 
         choices = ['Date', 'Odometer', 'Paid', 'Fuel Price', 'Fuel Quantity', 'Fuel Type', 'Fuel Brand', 'Location',
                    'Cancel']
-        ans_modify = modify_prompt.enum_select('Select an editor?', choices)
+        ans_modify = modify_prompt.enum_select('Select an option?', choices)
 
         case ans_modify
         when 'Date'

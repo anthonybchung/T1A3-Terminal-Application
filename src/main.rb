@@ -7,6 +7,7 @@ require_relative './main_analyse'
 
 require 'tty-table'
 require 'tty-prompt'
+require 'tty-markdown'
 require 'fileutils'
 
 include MainInput
@@ -25,12 +26,12 @@ if !ARGV.empty?
   when 'help'
     help_loop = true
     while help_loop
-    puts "Press X to exit"
-    ans_exit = STDIN.gets.chomp
-    if ans_exit == 'X' || ans_exit == 'x'
-      exit
+      parsed = TTY::Markdown.parse_file('./data/help.md')
+      puts parsed
+      puts 'Press X to exit'
+      ans_exit = STDIN.gets.chomp
+      exit if %w[X x].include?(ans_exit)
     end
-  end
   end
 else
   FileUtils.cp('./data/fuel_brand_actual.json', './data/fuel_brand.json')
@@ -40,21 +41,23 @@ else
 end
 
 file_name = "./data/#{FuelTrackFile::INVOICEDATA}"
-file = File.read(file_name)
 
 main_loop = true
 # choose input,retrive, analyse or predict.
 while main_loop
+  file = File.read(file_name)
   system('clear')
 
   choose_main_prompt = TTY::Prompt.new
   main_option = []
   main_option << 'Input New Invoice'
-  main_option << 'Retrieve List of Invoices' if file.size > 0
-  main_option << 'Analyse Data' if file.size > 0
+  main_option << 'Retrieve List of Invoices' if file.size > 2
+  main_option << 'Analyse Data' if file.size > 2
+  main_option << 'Delete all invoice' if file.size > 2
   main_option << 'Exit'
   ans_main = choose_main_prompt.select('Select an option',
                                        main_option)
+
   case ans_main
   when 'Input New Invoice'
     system('clear')
@@ -64,6 +67,13 @@ while main_loop
     MainRetrieve.retrieve_invoice
   when 'Analyse Data'
     MainAnalyse.analyse
+
+  when 'Delete all invoice'
+    invoice_file = InvoiceFile.new(file_name)
+    invoice_file.reset_invoice
+    main_option -= ['Retrieve List of Invoices']
+    main_option -= ['Analyse Data']
+    main_option -= ['Delete all invoice']
   when 'Exit'
     if ARGV.empty?
       FileUtils.cp('./data/fuel_brand.json', './data/fuel_brand_actual.json')

@@ -9,7 +9,7 @@ RSpec.describe 'User selection' do
     expect(user_selection).to be_kind_of(UserSelection)
   end
 
-  skip 'store data to file' do
+  it 'store data to file' do
     user_selection = UserSelection.new
     file_name = "../data/#{FuelTrackFile::FUELBRAND}"
     user_selection.file_name = file_name
